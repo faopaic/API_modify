@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 /**
  * 今日は何の日？
- * 
+ * version 1.0
  * 利用API: https://www.whatistoday.cyou/index.cgi/
  */
 public class TodayAnniversary {
