@@ -7,8 +7,9 @@ import org.json.JSONObject;
 public class Translate {
 
     // DeepL API を使って翻訳する関数
-    public static String translateText(String text, String targetLang, String apiKey) throws Exception {
+    public static String translateText(String text, String targetLang) throws Exception {
         // DeepL Free API のURL
+        String apiKey = "3b177dc2-f6b1-4808-8304-94786f62f920:fx";
         URL url = new URL("https://api-free.deepl.com/v2/translate");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
