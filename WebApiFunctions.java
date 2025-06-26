@@ -3,6 +3,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class WebApiFunctions {
     public static String getCatFact() throws Exception {
@@ -55,4 +56,58 @@ public class WebApiFunctions {
 
         return translated;
     }
+
+    public static String getRandomWord() throws Exception {
+        String apiUrl = "https://random-word-api.herokuapp.com/word?number=1";
+
+        URL url = new URL(apiUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+
+        Scanner sc = new Scanner(conn.getInputStream());
+        StringBuilder response = new StringBuilder();
+        while (sc.hasNext()) {
+            response.append(sc.nextLine());
+        }
+        sc.close();
+
+        JSONArray jsonArray = new JSONArray(response.toString());
+        return jsonArray.getString(0);
+    }
+
+    public static String getMeaning(String word) {
+        String apiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/" + word;
+        try {
+            URL url = new URL(apiUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            Scanner sc = new Scanner(conn.getInputStream());
+            StringBuilder response = new StringBuilder();
+            while (sc.hasNext()) {
+                response.append(sc.nextLine());
+            }
+            sc.close();
+
+            JSONArray jsonArray = new JSONArray(response.toString());
+            JSONObject firstEntry = jsonArray.getJSONObject(0);
+            JSONArray meanings = firstEntry.getJSONArray("meanings");
+            JSONObject firstMeaning = meanings.getJSONObject(0);
+            JSONArray definitions = firstMeaning.getJSONArray("definitions");
+            JSONObject firstDefinition = definitions.getJSONObject(0);
+
+            return firstDefinition.getString("definition");
+        } catch (java.io.FileNotFoundException e) {
+            try {
+                return WebApiFunctions.translateText(word, "JA") + "（翻訳結果）";
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return "意味が見つからず、翻訳も失敗しました";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "エラーが発生しました";
+        }
+    }
+
 }
