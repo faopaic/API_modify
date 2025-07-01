@@ -92,15 +92,17 @@ public class PokeApiUtil {
     // 情報をまとめるクラス
     public static class PokemonInfo {
         public final String japaneseName;
+        public final String types;
         public final int height;
         public final int weight;
-        public final String types;
+        
 
         public PokemonInfo(String japaneseName, int height, int weight, String types) {
             this.japaneseName = japaneseName;
+            this.types = types;
             this.height = height;
             this.weight = weight;
-            this.types = types;
+            
         }
     }
 }
