@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class PokeApi {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("ポケモン名またはIDを入力してください: ");
+            System.out.print("ポケモンの番号を入力してください: ");
             String input = scanner.nextLine().toLowerCase();
 
             PokeApiUtil.PokemonInfo info = PokeApiUtil.getPokemonInfo(input);
