@@ -1,11 +1,8 @@
-
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
-
+import java.net.URI;
 
 public class NasaApodViewerWithDate {
 
@@ -13,17 +10,11 @@ public class NasaApodViewerWithDate {
     private static final String API_KEY = "8PhJaO4tMefOUYNRbpf0pKtIupXOwCbsSDpo4brA";
     private static final String BASE_URL = "https://api.nasa.gov/planetary/apod?api_key=";
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("日付を入力してください（例: 2024-06-01）: ");
-        String date = scanner.nextLine();
-        scanner.close();
-
+    public void showApod(String date) {
         try {
             // APIリクエスト用URLを組み立て
             String requestUrl = BASE_URL + API_KEY + "&date=" + date;
-
-            URL url = new URL(requestUrl);
+            URL url = new URI(requestUrl).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
@@ -38,7 +29,6 @@ public class NasaApodViewerWithDate {
 
             StringBuilder response = new StringBuilder();
             String line;
-
             while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
@@ -60,7 +50,7 @@ public class NasaApodViewerWithDate {
 
             // 画像をブラウザで開く（画像URLが取得できた場合のみ）
             if (!imageUrl.equals("見つかりません")) {
-                java.awt.Desktop.getDesktop().browse(new URL(imageUrl).toURI());
+                java.awt.Desktop.getDesktop().browse(new URI(imageUrl));
             }
 
         } catch (Exception e) {
