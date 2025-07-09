@@ -1,9 +1,9 @@
 package DiaryAPP.Java;
 
-import org.jline.keymap.KeyMap;
-import org.jline.keymap.BindingReader;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
+import org.jline.keymap.BindingReader;
+import org.jline.keymap.KeyMap;
 
 import java.io.IOException;
 
@@ -18,55 +18,63 @@ public class ArrowMenu {
     private int selectedIndex = 0;
 
     public void showMenu() throws IOException {
-        Terminal terminal = TerminalBuilder.terminal();
+        Terminal terminal = TerminalBuilder.builder()
+                .system(true)
+                .build();
+        terminal.enterRawMode();
+        terminal.echo(false);
+
         BindingReader reader = new BindingReader(terminal.reader());
         KeyMap<String> keyMap = new KeyMap<>();
+        keyMap.bind("up", "w", "\033[A"); // wキーまたは↑キー
+        keyMap.bind("down", "s", "\033[B"); // sキーまたは↓キー
+        keyMap.bind("enter", "\r", "\n");
 
-        // 矢印キーではなく、w/sキーで上下、enterで決定に変更
-        keyMap.bind("up", "w");
-        keyMap.bind("down", "s");
-        keyMap.bind("enter", "\r"); // Enterキーはそのまま
+        boolean running = true;
+        printMenu(terminal);
 
-        terminal.enterRawMode();
-
-        while (true) {
-            printMenu(terminal);
+        while (running) {
             String key = reader.readBinding(keyMap);
-
-            if (key == null)
-                continue;
-
             switch (key) {
                 case "up":
                     selectedIndex = (selectedIndex - 1 + MENU_ITEMS.length) % MENU_ITEMS.length;
+                    printMenu(terminal);
                     break;
                 case "down":
                     selectedIndex = (selectedIndex + 1) % MENU_ITEMS.length;
+                    printMenu(terminal);
                     break;
                 case "enter":
                     terminal.writer().println("\n選択した項目: " + MENU_ITEMS[selectedIndex]);
                     terminal.flush();
-                    return; // 必要ならメニュー遷移
+                    running = false;
+                    break;
                 default:
-                    // 他のキーは無視
                     break;
             }
         }
+
+        terminal.echo(true);
+        terminal.close();
     }
 
     private void printMenu(Terminal terminal) {
-        terminal.puts(org.jline.utils.InfoCmp.Capability.clear_screen);
+        // ANSIエスケープシーケンスで画面クリア（Windowsでも比較的動作安定）
+        terminal.writer().print("\033[H\033[2J");
+        terminal.flush();
+
         terminal.writer().println("=== メインメニュー ===\n");
 
         for (int i = 0; i < MENU_ITEMS.length; i++) {
             if (i == selectedIndex) {
-                terminal.writer().print("\033[47;30m");
+                terminal.writer().print("\033[47;30m"); // 白背景＋黒文字
                 terminal.writer().println(" > " + MENU_ITEMS[i] + " ");
-                terminal.writer().print("\033[0m");
+                terminal.writer().print("\033[0m"); // 色リセット
             } else {
                 terminal.writer().println("   " + MENU_ITEMS[i]);
             }
         }
+
         terminal.flush();
     }
 }
