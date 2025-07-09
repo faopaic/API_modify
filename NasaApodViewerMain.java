@@ -5,7 +5,7 @@ public class NasaApodViewerMain {
         Scanner scanner = new Scanner(System.in);
         System.out.print("日付を入力してください（例: 2024-06-01）: ");
         String date = scanner.nextLine();
-        scanner.close();
+        //scanner.close();
 
         NasaApodViewerWithDate apod = new NasaApodViewerWithDate();
         apod.showApod(date);
