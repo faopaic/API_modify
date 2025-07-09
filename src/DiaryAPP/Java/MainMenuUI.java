@@ -44,6 +44,9 @@ public class MainMenuUI {
                     out.println("「" + MENU_ITEMS.get(selected) + "」機能はまだ実装されていません。");
                     out.flush();
                     Thread.sleep(1500);
+                    while (terminal.reader().ready()) {
+                        terminal.reader().read();
+                    }
                 }
             }
         }
