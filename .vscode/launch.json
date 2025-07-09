@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "i",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.i",
+            "projectName": "API_modify_5e67c3dd"
+        },
+        {
+            "type": "java",
             "name": "Java: 実行",
             "request": "launch",
             "mainClass": "DiaryAPP.Java.Main",
