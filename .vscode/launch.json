@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpotifyApiMain",
+            "request": "launch",
+            "mainClass": "SpotifyApiMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "OpenWeatherMapMain",
+            "request": "launch",
+            "mainClass": "OpenWeatherMapMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "Java: 実行",
             "request": "launch",
             "mainClass": "DiaryAPP.Java.Main",
