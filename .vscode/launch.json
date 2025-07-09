@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "sougou",
+            "request": "launch",
+            "mainClass": "sougou",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
+            "name": "sougou1",
+            "request": "launch",
+            "mainClass": "sougou1",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
             "name": "SpotifyApiMain",
             "request": "launch",
             "mainClass": "SpotifyApiMain",
