@@ -2,5 +2,7 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "json-20250107.jar"
-    ]
+    ],
+    "terminal.integrated.defaultEncoding": "utf8",
+    "files.encoding": "utf8"
 }
