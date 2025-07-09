@@ -176,7 +176,7 @@ public class LibrarySearchApp {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            scanner.close();
+            //scanner.close();
         }
     }
 }

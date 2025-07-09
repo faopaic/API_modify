@@ -3,10 +3,37 @@
     "configurations": [
         {
             "type": "java",
+          
             "name": "i",
             "request": "launch",
             "mainClass": "DiaryAPP.Java.i",
             "projectName": "API_modify_5e67c3dd"
+
+            "name": "sougou",
+            "request": "launch",
+            "mainClass": "sougou",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
+            "name": "sougou1",
+            "request": "launch",
+            "mainClass": "sougou1",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
+            "name": "SpotifyApiMain",
+            "request": "launch",
+            "mainClass": "SpotifyApiMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "OpenWeatherMapMain",
+            "request": "launch",
+            "mainClass": "OpenWeatherMapMain",
+            "projectName": "API_modify_e47afebf"
         },
         {
             "type": "java",

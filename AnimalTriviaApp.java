@@ -17,7 +17,7 @@ public class AnimalTriviaApp{
         System.out.print("番号を入力：");
         int choice = scanner.nextInt();
         scanner.nextLine();
-        scanner.close();
+        //scanner.close();
         switch (choice) {
             case 1:
                 fetchCatFact(); // 猫の雑学

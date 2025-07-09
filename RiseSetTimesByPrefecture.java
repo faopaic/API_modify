@@ -139,7 +139,7 @@ public class RiseSetTimesByPrefecture {
             System.err.println("エラーが発生しました: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            scanner.close();
+            //scanner.close();
         }
     }
 

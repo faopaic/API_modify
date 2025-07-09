@@ -3,8 +3,11 @@
         "lib/**/*.jar",
         "json-20250107.jar"
     ],
+    "terminal.integrated.defaultEncoding": "utf8",
+    "files.encoding": "utf8",
     "java.project.sourcePaths": [
-        "src"
+        "src",
+        ""
     ],
     "java.debug.settings.onBuildFailureProceed": true
 }
