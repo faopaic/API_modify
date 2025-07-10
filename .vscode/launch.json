@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MixedInputExample",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.MixedInputExample",
+            "projectName": "API_modify_5e67c3dd"
+        },
+        {
+            "type": "java",
             "name": "sougou1",
             "request": "launch",
             "mainClass": "sougou1",
