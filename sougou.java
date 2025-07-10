@@ -40,7 +40,7 @@ public class sougou {
                     break;
                 case 5:
                     System.out.println("日・月の出入りを確認中...");
-                    RiseSetTimesByPrefecture.main(new String[]{});
+                    RiseSetTimesByPrefectureMain.main(new String[]{});
                     break;
                 case 0:
                     System.out.println("プログラムを終了します。");

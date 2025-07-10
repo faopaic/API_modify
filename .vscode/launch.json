@@ -3,6 +3,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LibrarySearchApp",
+            "request": "launch",
+            "mainClass": "LibrarySearchApp",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "sougou1",
+            "request": "launch",
+            "mainClass": "sougou1",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "RiseSetTimesByPrefectureMain",
+            "request": "launch",
+            "mainClass": "RiseSetTimesByPrefectureMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "RiseSetTimesByPrefecture",
+            "request": "launch",
+            "mainClass": "RiseSetTimesByPrefecture",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "NasaApodViewerMain",
+            "request": "launch",
+            "mainClass": "NasaApodViewerMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "NewsDataApiMain",
+            "request": "launch",
+            "mainClass": "NewsDataApiMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "sougou1",
             "request": "launch",
             "mainClass": "sougou1",
