@@ -48,10 +48,8 @@ public class NasaApodViewerWithDate {
             System.out.println("画像URL: " + imageUrl);
             System.out.println("\n解説: " + WebApiFunctions.translateText(explanation, "JA"));
 
-            // 画像をブラウザで開く（画像URLが取得できた場合のみ）
-            if (!imageUrl.equals("見つかりません")) {
-                java.awt.Desktop.getDesktop().browse(new URI(imageUrl));
-            }
+            
+
 
         } catch (Exception e) {
             System.out.println("エラー: " + e.getMessage());

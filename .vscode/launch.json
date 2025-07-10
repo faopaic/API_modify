@@ -3,6 +3,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LibrarySearchApp",
+            "request": "launch",
+            "mainClass": "LibrarySearchApp",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
+            "name": "NasaApodViewerMain",
+            "request": "launch",
+            "mainClass": "NasaApodViewerMain",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
+            "name": "NewsDataApiExample",
+            "request": "launch",
+            "mainClass": "NewsDataApiExample",
+            "projectName": "API_modify_15375201"
+        },
+        {
+            "type": "java",
             "name": "sougou1",
             "request": "launch",
             "mainClass": "sougou1",

@@ -149,6 +149,8 @@ public class LibrarySearchApp {
                                 System.out.println("------------------------------------");
                                 System.out.println("図書館名: " + library.optString("formal", "N/A"));
                                 System.out.println("住所: " + library.optString("address", "N/A"));
+                                System.out.println("電話番号: " + library.optString("tel", "N/A"));
+                                System.out.println("URl: " + library.optString("url_pc", "N/A"));
                             }
                         } else {
                             System.out.println(selectedPrefecture + "の図書館情報は見つかりませんでした。");
