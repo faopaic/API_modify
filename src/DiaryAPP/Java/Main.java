@@ -11,6 +11,6 @@ public class Main {
                 .build();
 
         TopMenuUI.start(terminal); // アプリ起動時にトップメニューへ
-        terminal.close();          // 最後にクローズ
+        terminal.close(); // 最後にクローズ
     }
 }
