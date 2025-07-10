@@ -8,14 +8,13 @@ import java.util.List;
 
 public class MainMenuUI {
     private static final List<String> MENU_ITEMS = List.of(
-            "日記を書く", 
-            "過去の日記を読む", 
-            "他人の日記を受信する", 
-            "ログアウト"
-    );
+            "日記を書く",
+            "過去の日記を読む",
+            "他人の日記を受信する",
+            "ログアウト");
 
-    public static void start(Terminal terminal) throws Exception {
-        terminal.puts(org.jline.utils.InfoCmp.Capability.cursor_invisible);
+    public static void start(Terminal terminal, String userId) throws Exception {
+        terminal.puts(InfoCmp.Capability.cursor_invisible);
         PrintWriter out = terminal.writer();
         int selected = 0;
 
@@ -38,10 +37,13 @@ public class MainMenuUI {
             } else if (ch == 's' || ch == 'S' || ch == 66) {
                 selected = (selected + 1) % MENU_ITEMS.size();
             } else if (ch == 10 || ch == 13) {
-                if (MENU_ITEMS.get(selected).equals("ログアウト")) {
+                String choice = MENU_ITEMS.get(selected);
+                if (choice.equals("ログアウト")) {
                     return; // ← TopMenuUI に戻る
+                } else if (choice.equals("日記を書く")) {
+                    WriteDiaryUI.start(terminal, userId); // ← UIに遷移
                 } else {
-                    out.println("「" + MENU_ITEMS.get(selected) + "」機能はまだ実装されていません。");
+                    out.println("「" + choice + "」機能はまだ実装されていません。");
                     out.flush();
                     Thread.sleep(1500);
                     while (terminal.reader().ready()) {

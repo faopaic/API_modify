@@ -21,7 +21,7 @@ public class UserRegisterUI {
     public static void start(Terminal terminal) throws Exception {
         PrintWriter out = terminal.writer();
         BindingReader reader = new BindingReader(terminal.reader());
-        StringBuilder[] inputs = {new StringBuilder(), new StringBuilder()};
+        StringBuilder[] inputs = { new StringBuilder(), new StringBuilder() };
         int focus = 0;
 
         out.print("\033[H\033[2J");
@@ -41,8 +41,10 @@ public class UserRegisterUI {
 
             int ch = reader.readCharacter();
             if ((ch == 10 || ch == 13) && inputs[focus].length() > 0) {
-                if (focus == INPUT_ITEMS.size() - 1) break;
-                else focus++;
+                if (focus == INPUT_ITEMS.size() - 1)
+                    break;
+                else
+                    focus++;
             } else if ((ch == 127 || ch == 8) && inputs[focus].length() > 0) {
                 inputs[focus].deleteCharAt(inputs[focus].length() - 1);
                 out.print("\b \b");
@@ -87,12 +89,13 @@ public class UserRegisterUI {
                 terminal.reader().read();
             }
         } else {
-            //エラーメッセージ
-            // BufferedReader br = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "utf-8")); 
+            // エラーメッセージ
+            // BufferedReader br = new BufferedReader(new
+            // InputStreamReader(conn.getErrorStream(), "utf-8"));
             // StringBuilder errorResponse = new StringBuilder();
             // String line;
             // while ((line = br.readLine()) != null) {
-            //     errorResponse.append(line.trim());
+            // errorResponse.append(line.trim());
             // }
             terminal.puts(InfoCmp.Capability.cursor_invisible);
             out.println();
@@ -106,3 +109,4 @@ public class UserRegisterUI {
         }
     }
 }
+//

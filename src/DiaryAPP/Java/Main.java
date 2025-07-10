@@ -8,9 +8,11 @@ public class Main {
         Terminal terminal = TerminalBuilder.builder()
                 .system(true)
                 .jna(true)
+                .encoding("shift-jis")
                 .build();
 
         TopMenuUI.start(terminal); // アプリ起動時にトップメニューへ
         terminal.close(); // 最後にクローズ
     }
 }
+//

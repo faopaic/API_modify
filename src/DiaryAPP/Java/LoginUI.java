@@ -21,7 +21,7 @@ public class LoginUI {
     public static void start(Terminal terminal) throws Exception {
         PrintWriter out = terminal.writer();
         BindingReader reader = new BindingReader(terminal.reader());
-        StringBuilder[] inputs = {new StringBuilder(), new StringBuilder()};
+        StringBuilder[] inputs = { new StringBuilder(), new StringBuilder() };
         int focus = 0;
 
         out.print("\033[H\033[2J");
@@ -41,8 +41,10 @@ public class LoginUI {
 
             int ch = reader.readCharacter();
             if ((ch == 10 || ch == 13) && inputs[focus].length() > 0) {
-                if (focus == INPUT_ITEMS.size() - 1) break;
-                else focus++;
+                if (focus == INPUT_ITEMS.size() - 1)
+                    break;
+                else
+                    focus++;
             } else if ((ch == 127 || ch == 8) && inputs[focus].length() > 0) {
                 inputs[focus].deleteCharAt(inputs[focus].length() - 1);
                 out.print("\b \b");
@@ -88,8 +90,8 @@ public class LoginUI {
                 } else {
                     // 認証成功
                     terminal.puts(InfoCmp.Capability.cursor_invisible);
-                    MainMenuUI.start(terminal);
-                    return;  // 成功したらここで戻る
+                    MainMenuUI.start(terminal, userId);
+                    return; // 成功したらここで戻る
                 }
             }
 
@@ -97,7 +99,7 @@ public class LoginUI {
                 terminal.puts(InfoCmp.Capability.cursor_invisible);
                 out.println("\nログイン失敗：IDまたはパスワードが間違っています");
                 out.flush();
-                
+
                 Thread.sleep(2000);
                 while (terminal.reader().ready()) {
                     terminal.reader().read();
@@ -108,3 +110,4 @@ public class LoginUI {
         }
     }
 }
+//
