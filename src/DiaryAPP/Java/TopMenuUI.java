@@ -10,8 +10,7 @@ public class TopMenuUI {
     private static final List<String> MENU_ITEMS = List.of(
             "ユーザー登録",
             "ログイン",
-            "終了"
-    );
+            "終了");
 
     public static void start(Terminal terminal) throws Exception {
         terminal.puts(org.jline.utils.InfoCmp.Capability.cursor_invisible);
@@ -50,3 +49,4 @@ public class TopMenuUI {
         }
     }
 }
+//
