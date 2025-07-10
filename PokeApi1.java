@@ -16,6 +16,7 @@ public class PokeApi1 {
         // こうなります。理想的には、呼び出し元からScannerインスタンスを渡す方が良いですが、
         // mainメソッドのシグネチャを変更できないため、この対応になります。★★★
 
+        @SuppressWarnings("resource")
         Scanner tempScanner = new Scanner(System.in); // ここで新しいScannerを作成
         
         try {
