@@ -1,5 +1,6 @@
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 import org.json.JSONObject;
@@ -9,7 +10,9 @@ public class WebApiFunctions {
     public static String translateText(String text, String targetLang) throws Exception {
         // DeepL Free API のURL
         String apiKey = "3b177dc2-f6b1-4808-8304-94786f62f920:fx";
-        URL url = new URL("https://api-free.deepl.com/v2/translate");
+        String urlStr = "https://api-free.deepl.com/v2/translate";
+        URI uri = new URI(urlStr);
+        URL url = uri.toURL();
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
         conn.setRequestMethod("POST");
