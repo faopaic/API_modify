@@ -12,7 +12,9 @@ import org.json.JSONObject;
 
 public class LibrarySearchApp {
 
-    // private static final String APP_KEY = "3364770bfd19bc95456dc9d8afb68e3f"; // あなたのCalil APIキー
+
+    private static final String API_BASE_URL = "https://api.calil.jp/library";
+    private static final String APP_KEY = "3364770bfd19bc95456dc9d8afb68e3f"; // あなたのCalil APIキー
 
     public static void main(String[] args) {
         Map<Integer, String> prefectures = new LinkedHashMap<>();
@@ -102,29 +104,14 @@ public class LibrarySearchApp {
             }
             scanner.nextLine();
 
-            LibrarySearchUtil.searchAndPrintLibraries(selectedPrefecture);
+            // int limit = 10; // ★この行は不要になるので削除またはコメントアウト★
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
-        }
-    }
-}
-
-class LibrarySearchUtil {
-    private static final String API_BASE_URL = "https://api.calil.jp/library";
-    private static final String APP_KEY = "3364770bfd19bc95456dc9d8afb68e3f"; // あなたのCalil APIキー
-
-    public static void searchAndPrintLibraries(String selectedPrefecture) {
-        try {
             String encodedPref = URLEncoder.encode(selectedPrefecture, StandardCharsets.UTF_8.toString());
+            // ★API URLからlimitパラメータを削除★
             String apiUrl = String.format("%s?appkey=%s&format=json&pref=%s",
-                    API_BASE_URL, APP_KEY, encodedPref);
+                                        API_BASE_URL, APP_KEY, encodedPref);
 
-            URL url = java.net.URI.create(apiUrl).toURL();
+            URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept-Charset", "UTF-8");
@@ -132,8 +119,7 @@ class LibrarySearchUtil {
             int responseCode = conn.getResponseCode();
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
                 String inputLine;
                 StringBuilder content = new StringBuilder();
                 while ((inputLine = in.readLine()) != null) {
@@ -156,12 +142,15 @@ class LibrarySearchUtil {
                     try {
                         JSONArray jsonArray = new JSONArray(jsonToParse);
                         if (jsonArray.length() > 0) {
+                            // 表示メッセージから「(最大XX件)」を削除
                             System.out.println("\n--- " + selectedPrefecture + "の図書館情報 ---");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject library = jsonArray.getJSONObject(i);
                                 System.out.println("------------------------------------");
                                 System.out.println("図書館名: " + library.optString("formal", "N/A"));
                                 System.out.println("住所: " + library.optString("address", "N/A"));
+                                System.out.println("電話番号: " + library.optString("tel", "N/A"));
+                                System.out.println("URl: " + library.optString("url_pc", "N/A"));
                             }
                         } else {
                             System.out.println(selectedPrefecture + "の図書館情報は見つかりませんでした。");
@@ -176,8 +165,7 @@ class LibrarySearchUtil {
 
             } else {
                 System.err.println("Calil APIからのデータ取得に失敗しました。レスポンスコード: " + responseCode);
-                BufferedReader err = new BufferedReader(
-                        new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
+                BufferedReader err = new BufferedReader(new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
                 String errorLine;
                 StringBuilder errorContent = new StringBuilder();
                 while ((errorLine = err.readLine()) != null) {
@@ -189,6 +177,8 @@ class LibrarySearchUtil {
 
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            //scanner.close();
         }
     }
 }
