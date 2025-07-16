@@ -3,6 +3,76 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LibrarySearchApp",
+            "request": "launch",
+            "mainClass": "LibrarySearchApp",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "NasaApodViewerWithDate",
+            "request": "launch",
+            "mainClass": "NasaApodViewerWithDate",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "NasaApodViewerMain",
+            "request": "launch",
+            "mainClass": "NasaApodViewerMain",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "NasaApodViewer",
+            "request": "launch",
+            "mainClass": "NasaApodViewer",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "sougou",
+            "request": "launch",
+            "mainClass": "sougou",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "SpotifyApi",
+            "request": "launch",
+            "mainClass": "SpotifyApi",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "NewsDataApiExample",
+            "request": "launch",
+            "mainClass": "NewsDataApiExample",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "RiseSetTimesByPrefecture",
+            "request": "launch",
+            "mainClass": "RiseSetTimesByPrefecture",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "PokeApi",
+            "request": "launch",
+            "mainClass": "PokeApi",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "PokeApi1",
+            "request": "launch",
+            "mainClass": "PokeApi1",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "src.DiaryAPP.Java.Main",
