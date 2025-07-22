@@ -3,12 +3,19 @@
     "configurations": [
         {
             "type": "java",
-<<<<<<< HEAD
             "name": "RecipeSearchApp",
             "request": "launch",
             "mainClass": "RecipeSearchApp",
             "projectName": "API_modify_cbd97a21"
-=======
+        },
+        {
+            "name": "NewsDataApiExample",
+            "request": "launch",
+            "mainClass": "NewsDataApiExample",
+            "projectName": "API_modify_9b6081dc"
+        },
+        {
+            "type": "java",
             "name": "LibrarySearchApp",
             "request": "launch",
             "mainClass": "LibrarySearchApp",
@@ -76,7 +83,6 @@
             "request": "launch",
             "mainClass": "PokeApi1",
             "projectName": "API_modify_e47afebf"
->>>>>>> 73a60a2c27ceae56da29272f63374f3b12a00fa2
         },
         {
             "type": "java",
