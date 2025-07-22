@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "NewsDataApiExample",
+            "request": "launch",
+            "mainClass": "NewsDataApiExample",
+            "projectName": "API_modify_9b6081dc"
+        },
+        {
+            "type": "java",
             "name": "LibrarySearchApp",
             "request": "launch",
             "mainClass": "LibrarySearchApp",
