@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RecipeSearchApp",
+            "request": "launch",
+            "mainClass": "RecipeSearchApp",
+            "projectName": "API_modify_cbd97a21"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "src.DiaryAPP.Java.Main",
