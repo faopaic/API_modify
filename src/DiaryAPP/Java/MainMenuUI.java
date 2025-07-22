@@ -41,7 +41,9 @@ public class MainMenuUI {
                 if (choice.equals("ログアウト")) {
                     return; // ← TopMenuUI に戻る
                 } else if (choice.equals("日記を書く")) {
-                    WriteDiaryUI.start(terminal, userId); // ← UIに遷移
+                    WriteDiaryUI.start(terminal, userId); // ← 既存のUIに遷移
+                } else if (choice.equals("過去の日記を読む")) {
+                    ReadDiaryUI.start(terminal, userId); // ← ここで ReadDiaryUIを呼び出し
                 } else {
                     out.println("「" + choice + "」機能はまだ実装されていません。");
                     out.flush();
