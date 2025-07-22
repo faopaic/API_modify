@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import org.json.JSONArray;
@@ -14,7 +15,8 @@ public class NewsDataApiExample {
 
     public static void main(String[] args) {
         try {
-            URL url = new URL(API_URL);
+            URI uri = new URI(API_URL);
+            URL url = uri.toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
@@ -27,8 +29,7 @@ public class NewsDataApiExample {
             }
             reader.close();
 
-            String response = responseBuilder.toString();
-            JSONObject jsonResponse = new JSONObject(response);
+            JSONObject jsonResponse = new JSONObject(responseBuilder.toString());
             JSONArray results = jsonResponse.getJSONArray("results");
 
             for (int i = 0; i < results.length(); i++) {
@@ -42,8 +43,6 @@ public class NewsDataApiExample {
                 System.out.println("説明: " + description);
                 System.out.println("URL: " + link);
                 System.out.println();
-
-                
             }
 
         } catch (Exception e) {

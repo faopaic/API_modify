@@ -32,7 +32,7 @@ public class sougou {
                     break;
                 case 3:
                     System.out.println("NASAの星画像...");
-                    NasaApodViewerMain.main(new String[]{}); 
+                    NasaApodViewerWithDate.main(new String[]{}); 
                     break;
                 case 4:
                     System.out.println("ポケモンを確認中...");
