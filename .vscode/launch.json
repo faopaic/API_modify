@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AnimalTriviaApp",
+            "request": "launch",
+            "mainClass": "AnimalTriviaApp",
+            "projectName": "API_modify_5e67c3dd"
+        },
+        {
+            "type": "java",
+            "name": "AnimalTriviaApp",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.AnimalTriviaApp",
+            "projectName": "API_modify_5e67c3dd"
+        },
+        {
+            "type": "java",
             "name": "RecipeSearchApp",
             "request": "launch",
             "mainClass": "RecipeSearchApp",
