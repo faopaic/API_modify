@@ -73,8 +73,9 @@ public class ReadDiaryUI {
             conn.setRequestProperty("Accept", "application/json");
 
             try (InputStream is = conn.getInputStream();
-                 Scanner scanner = new Scanner(is).useDelimiter("\\A")) {
-                if (!scanner.hasNext()) return diaryMap;
+                    Scanner scanner = new Scanner(is, "UTF-8").useDelimiter("\\A")) {
+                if (!scanner.hasNext())
+                    return diaryMap;
                 String result = scanner.next();
                 JSONObject json = new JSONObject(result);
 
@@ -90,7 +91,8 @@ public class ReadDiaryUI {
         return diaryMap;
     }
 
-    private static void showDiaryDetail(Terminal terminal, PrintWriter out, BindingReader reader, String userId, String date) throws Exception {
+    private static void showDiaryDetail(Terminal terminal, PrintWriter out, BindingReader reader, String userId,
+            String date) throws Exception {
         String baseUrl = "https://teamf-6d71a-default-rtdb.asia-southeast1.firebasedatabase.app";
         URL url = new URL(baseUrl + "/diaries/" + userId + "/" + date + ".json");
 
@@ -102,7 +104,7 @@ public class ReadDiaryUI {
         String body = "";
 
         try (InputStream is = conn.getInputStream();
-             Scanner scanner = new Scanner(is).useDelimiter("\\A")) {
+                Scanner scanner = new Scanner(is, "UTF-8").useDelimiter("\\A")) {
             if (scanner.hasNext()) {
                 String result = scanner.next();
                 JSONObject json = new JSONObject(result);

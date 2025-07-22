@@ -44,6 +44,8 @@ public class MainMenuUI {
                     WriteDiaryUI.start(terminal, userId); // ← 既存のUIに遷移
                 } else if (choice.equals("過去の日記を読む")) {
                     ReadDiaryUI.start(terminal, userId); // ← ここで ReadDiaryUIを呼び出し
+                } else if (choice.equals("他人の日記を受信する")) {
+                    ReceiveDiaryUI.start(terminal, userId);
                 } else {
                     out.println("「" + choice + "」機能はまだ実装されていません。");
                     out.flush();
