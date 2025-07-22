@@ -11,6 +11,7 @@ public class MainMenuUI {
             "日記を書く",
             "過去の日記を読む",
             "他人の日記を受信する",
+            "話題を探す",
             "ログアウト");
 
     public static void start(Terminal terminal, String userId) throws Exception {
@@ -46,6 +47,9 @@ public class MainMenuUI {
                     ReadDiaryUI.start(terminal, userId); // ← ここで ReadDiaryUIを呼び出し
                 } else if (choice.equals("他人の日記を受信する")) {
                     ReceiveDiaryUI.start(terminal, userId);
+                } else if (choice.equals("話題を探す")) {
+                    // ここに話題を探す機能の呼び出しを追加
+                    TopicSearchUI.start(terminal, userId);
                 } else {
                     out.println("「" + choice + "」機能はまだ実装されていません。");
                     out.flush();
