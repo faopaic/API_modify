@@ -187,36 +187,54 @@ public class WriteDiaryUI {
     }
 
     private static void shareDiary(Terminal terminal, PrintWriter out, BindingReader reader, String userId) {
+    try {
+        String date = getToday();
+        String baseUrl = "https://teamf-6d71a-default-rtdb.asia-southeast1.firebasedatabase.app";
+        URL getUrl = new URL(baseUrl + "/diaries/" + userId + "/" + date + ".json");
+
+        // 1. 既存の日記を取得
+        HttpURLConnection getConn = (HttpURLConnection) getUrl.openConnection();
+        getConn.setRequestMethod("GET");
+        getConn.setRequestProperty("Accept", "application/json");
+
+        JSONObject diaryJson;
+        try (InputStream is = getConn.getInputStream();
+             Scanner s = new Scanner(is).useDelimiter("\\A")) {
+            if (!s.hasNext()) {
+                showMessage(terminal, out, "共有失敗: データが存在しません", 2000);
+                return;
+            }
+            String result = s.next();
+            diaryJson = new JSONObject(result);
+        }
+
+        // 2. "shared": true を追加
+        diaryJson.put("shared", true);
+
+        // 3. PUT で上書き送信
+        HttpURLConnection putConn = (HttpURLConnection) getUrl.openConnection();
+        putConn.setRequestMethod("PUT");
+        putConn.setRequestProperty("Content-Type", "application/json; utf-8");
+        putConn.setDoOutput(true);
+
+        try (OutputStream os = putConn.getOutputStream()) {
+            os.write(diaryJson.toString().getBytes("utf-8"));
+        }
+
+        int code = putConn.getResponseCode();
+        if (code == 200)
+            showMessage(terminal, out, "共有しました。", 1500);
+        else
+            showMessage(terminal, out, "共有失敗（HTTP " + code + "）", 2000);
+
+    } catch (Exception e) {
         try {
-            String date = getToday();
-            String baseUrl = "https://teamf-6d71a-default-rtdb.asia-southeast1.firebasedatabase.app";
-            URL patchUrl = new URL(baseUrl + "/diaries/" + userId + "/" + date + ".json");
-
-            HttpURLConnection patchConn = (HttpURLConnection) patchUrl.openConnection();
-            patchConn.setRequestMethod("PATCH");
-            patchConn.setRequestProperty("Content-Type", "application/json; utf-8");
-            patchConn.setDoOutput(true);
-
-            JSONObject update = new JSONObject();
-            update.put("shared", true);
-
-            try (OutputStream os = patchConn.getOutputStream()) {
-                os.write(update.toString().getBytes("utf-8"));
-            }
-
-            int code = patchConn.getResponseCode();
-            if (code == 200)
-                showMessage(terminal, out, "共有しました。", 1500);
-            else
-                showMessage(terminal, out, "共有失敗（HTTP " + code + "）", 2000);
-
-        } catch (Exception e) {
-            try {
-                showMessage(terminal, out, "エラー: " + e.getMessage(), 2000);
-            } catch (InterruptedException ignored) {
-            }
+            showMessage(terminal, out, "エラー: " + e.getMessage(), 2000);
+        } catch (InterruptedException ignored) {
         }
     }
+}
+
 
     private static void showMessage(Terminal terminal, PrintWriter out, String msg, int millis)
             throws InterruptedException {
