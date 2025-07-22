@@ -3,6 +3,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RecipeSearchApp",
+            "request": "launch",
+            "mainClass": "RecipeSearchApp",
+            "projectName": "API_modify_cbd97a21"
+        },
+        {
             "name": "NewsDataApiExample",
             "request": "launch",
             "mainClass": "NewsDataApiExample",
