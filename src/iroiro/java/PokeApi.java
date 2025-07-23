@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class PokeApi {
 
-    // 英語タイプ名 → 日本語タイプ名マップ
     private static final Map<String, String> typeNameMap = Map.ofEntries(
             Map.entry("normal", "ノーマル"),
             Map.entry("fire", "ほのお"),
@@ -33,39 +32,32 @@ public class PokeApi {
             Map.entry("steel", "はがね"),
             Map.entry("fairy", "フェアリー"));
 
-    public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("ポケモンの番号を入力してください（ランダムの場合はEnterのみ）: ");
-            String input = scanner.nextLine().toLowerCase();
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("ポケモンの番号を入力してください（ランダムの場合は入力せずにEnter）: ");
+        String input = scanner.nextLine().toLowerCase();
 
-            if (input.isEmpty()) {
-                int maxPokemon = 1025;
-                int randomId = new Random().nextInt(maxPokemon) + 1;
-                input = String.valueOf(randomId);
-                System.out.println("ランダムで選ばれた番号: " + input);
-            }
-
-            PokemonInfo info = getPokemonInfo(input);
-
-            System.out.println("名前: " + info.japaneseName);
-            System.out.println("タイプ: " + info.types);
-            System.out.printf("高さ: %.1f m%n", info.height / 10.0);
-            System.out.printf("重さ: %.1f kg%n", info.weight / 10.0);
-
-        } catch (Exception e) {
-            System.out.println("情報の取得に失敗しました。入力が正しいか確認してください。");
-            // e.printStackTrace();
+        if (input.isEmpty()) {
+            int maxPokemon = 1025;
+            int randomId = new Random().nextInt(maxPokemon) + 1;
+            input = String.valueOf(randomId);
+            System.out.println("ランダムで選ばれた番号: " + input);
         }
+
+        PokemonInfo info = getPokemonInfo(input);
+
+        System.out.println("名前: " + info.japaneseName);
+        System.out.println("タイプ: " + info.types);
+        System.out.printf("高さ: %.1f m%n", info.height / 10.0);
+        System.out.printf("重さ: %.1f kg%n", info.weight / 10.0);
     }
 
     public static PokemonInfo getPokemonInfo(String input) throws Exception {
-        // ポケモン基本情報
         String apiUrl = "https://pokeapi.co/api/v2/pokemon/" + input;
         JSONObject json = getJsonFromUrl(apiUrl);
         int height = json.getInt("height");
         int weight = json.getInt("weight");
 
-        // タイプを取得
         JSONArray typesArray = json.getJSONArray("types");
         StringBuilder typesStr = new StringBuilder();
         for (int i = 0; i < typesArray.length(); i++) {
@@ -76,7 +68,6 @@ public class PokeApi {
             typesStr.append(jpType);
         }
 
-        // 日本語名取得
         String speciesUrl = "https://pokeapi.co/api/v2/pokemon-species/" + input;
         JSONObject speciesJson = getJsonFromUrl(speciesUrl);
         JSONArray namesArray = speciesJson.getJSONArray("names");
@@ -98,18 +89,17 @@ public class PokeApi {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
 
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(conn.getInputStream()))) {
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            return new JSONObject(response.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
         }
+        reader.close();
+
+        return new JSONObject(response.toString());
     }
 
-    // 情報をまとめるクラス
     public static class PokemonInfo {
         public final String japaneseName;
         public final String types;

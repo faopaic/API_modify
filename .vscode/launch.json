@@ -3,6 +3,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RecipeSearchApp",
+            "request": "launch",
+            "mainClass": "iroiro.java.RecipeSearchApp",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "SpotifyArtistSearch",
+            "request": "launch",
+            "mainClass": "iroiro.java.SpotifyArtistSearch",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "PokeApi",
+            "request": "launch",
+            "mainClass": "iroiro.java.PokeApi",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "PokeApi",
             "request": "launch",
             "mainClass": "DiaryAPP.Java.PokeApi",

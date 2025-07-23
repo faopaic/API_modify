@@ -12,24 +12,22 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SpotifyArtistSearch {
+
     private static final String CLIENT_ID = "8970f04edef74a48a89938617c70caaf";
     private static final String CLIENT_SECRET = "e35e22f9f69c44088446ae6115c88d5b";
 
-    public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("検索したいアーティスト名を入力してください: ");
-            String artistName = scanner.nextLine();
+    public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("検索したいアーティスト名を入力してください: ");
+        String artistName = scanner.nextLine();
+        scanner.close();
 
-            if (artistName.trim().isEmpty()) {
-                System.out.println("アーティスト名が空です。終了します。");
-                return;
-            }
-
-            searchArtistAndShowTopTracks(artistName);
-        } catch (Exception e) {
-            System.out.println("エラー: " + e.getMessage());
-            e.printStackTrace();
+        if (artistName.trim().isEmpty()) {
+            System.out.println("アーティスト名が空です。終了します。");
+            return;
         }
+
+        searchArtistAndShowTopTracks(artistName);
     }
 
     public static void searchArtistAndShowTopTracks(String artistName) throws Exception {
