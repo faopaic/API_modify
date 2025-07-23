@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpotifyArtistSearchWithTopTracks",
+            "request": "launch",
+            "mainClass": "SpotifyArtistSearchWithTopTracks",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "SpotifyArtistSearch",
+            "request": "launch",
+            "mainClass": "SpotifyArtistSearch",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "AnimalTriviaApp",
             "request": "launch",
             "mainClass": "AnimalTriviaApp",
