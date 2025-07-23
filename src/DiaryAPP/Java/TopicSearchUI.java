@@ -10,11 +10,14 @@ import java.util.List;
 public class TopicSearchUI {
 
     private static final List<String> MENU_ITEMS = List.of(
-            "猫の豆知識を見る",
+            "動物の生体情報を見る",
             "図書館検索をする",
             "NASAの星画像を見る",
             "図鑑ナンバーからポケモンを調べる",
             "日・月の出入りを確認する",
+            "Spotifyのアーティストを検索する",
+            "AdviceAPIからアドバイスを取得する",
+            "食材から料理レシピを探す",
             "戻る");
 
     public static void start(Terminal terminal, String userId) throws Exception {
@@ -60,7 +63,7 @@ public class TopicSearchUI {
         out.flush();
 
         switch (choice) {
-            case "猫の豆知識を見る":
+            case "動物の生体情報を見る":
                 AnimalTriviaApp.main(new String[] {});
                 break;
             case "図書館検索をする":
@@ -74,6 +77,15 @@ public class TopicSearchUI {
                 break;
             case "日・月の出入りを確認する":
                 RiseSetTimesByPrefecture.main(new String[] {});
+                break;
+            case "Spotifyのアーティストを検索する":
+                SpotifyArtistSearchApi.main(new String[] {});
+                break;
+            case "AdviceAPIからアドバイスを取得する":
+                AdviceApi.main(new String[] {});
+                break;
+            case "食材から料理レシピを探す":
+                RecipeSearchApp.main(new String[] {});
                 break;
             default:
                 out.println("未実装の項目です。");
