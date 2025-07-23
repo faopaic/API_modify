@@ -3,6 +3,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RecipeSearchApp",
+            "request": "launch",
+            "mainClass": "RecipeSearchApp",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "AnimalTriviaApp",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.AnimalTriviaApp",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "AdviceWithTranslation",
+            "request": "launch",
+            "mainClass": "AdviceWithTranslation",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "AdviceApi",
+            "request": "launch",
+            "mainClass": "AdviceApi",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "WikiPersonSearch",
+            "request": "launch",
+            "mainClass": "WikiPersonSearch",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "SpotifyArtistSearchWithTopTracks",
             "request": "launch",
             "mainClass": "SpotifyArtistSearchWithTopTracks",
