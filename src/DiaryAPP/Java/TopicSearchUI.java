@@ -18,6 +18,7 @@ public class TopicSearchUI {
             "Spotifyのアーティストを検索する",
             "AdviceAPIからアドバイスを取得する",
             "食材から料理レシピを探す",
+            "WikiPediaで人物を検索する",
             "戻る");
 
     public static void start(Terminal terminal, String userId) throws Exception {
@@ -86,6 +87,9 @@ public class TopicSearchUI {
                 break;
             case "食材から料理レシピを探す":
                 RecipeSearchApp.main(new String[] {});
+                break;
+            case "WikiPediaで人物を検索する":
+                WikiPersonSearch.main(new String[] {});
                 break;
             default:
                 out.println("未実装の項目です。");
