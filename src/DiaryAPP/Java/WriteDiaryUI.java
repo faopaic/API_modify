@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class WriteDiaryUI {
 
     @SuppressWarnings("resource")
-    public static void start(Terminal terminal, String userId) throws Exception {
+    public static void start(Terminal terminal, String userId, String date, WeatherInfo info) throws Exception {
         PrintWriter out = terminal.writer();
         BindingReader reader = new BindingReader(terminal.reader());
         Scanner scanner = new Scanner(System.in, "Shift_JIS");
@@ -26,17 +26,19 @@ public class WriteDiaryUI {
         String title = "";
 
         int selected = 0;
-        final int MENU_SIZE = 4;
+        final int MENU_SIZE = 3;
 
         while (true) {
-            drawMenu(terminal, out, selected, firstWrite);
+            drawMenu(terminal, out, selected, firstWrite, userId, date, info);
             int ch = reader.readCharacter();
 
-            if (ch == 'w' || ch == 'W' || ch == 65) {
+            if (ch == 'w' || ch == 'W' || ch == 65) { // ↑キー or w
                 selected = (selected - 1 + MENU_SIZE) % MENU_SIZE;
-            } else if (ch == 's' || ch == 'S' || ch == 66) {
+            } else if (ch == 's' || ch == 'S' || ch == 66) { // ↓キー or s
                 selected = (selected + 1) % MENU_SIZE;
-            } else if (ch == 10 || ch == 13) {
+            } else if (ch == 27) { // Escキー
+                return;
+            } else if (ch == 10 || ch == 13) { // Enterキー
                 switch (selected) {
                     case 0 -> {
                         title = writeContent(terminal, out, scanner, title, lines, firstWrite);
@@ -50,29 +52,35 @@ public class WriteDiaryUI {
                             showMessage(terminal, out, "まず日記を保存してください。", 2000);
                         }
                     }
-                    case 3 -> {
-                        return;
-                    }
                 }
             }
         }
     }
 
-    private static void drawMenu(Terminal terminal, PrintWriter out, int selected, boolean firstWrite) {
+    private static void drawMenu(Terminal terminal, PrintWriter out, int selected, boolean firstWrite, String userId,
+            String date, WeatherInfo info)
+            throws Exception {
         terminal.puts(InfoCmp.Capability.clear_screen);
-        out.println("=== 日記を書く ===");
+
+        out.println("+==========================================+");
+        out.printf(" ユーザー名： %s\n", userId);
+        out.printf(" 　　　日付： %s \n", date);
+        out.printf(" 　　　天気： %s %s°C \n", info.weather, info.temp);
+        out.println("+==========================================+");
+        out.println("               メインメニュー ");
+        out.println("+------------------------------------------+");
         String[] options = {
                 firstWrite ? "内容を書き込む" : "続きを書く",
                 "日記を保存する",
-                "日記を共有する",
-                "戻る"
+                "日記を共有する"
         };
         for (int i = 0; i < options.length; i++) {
             String prefix = selected == i ? "▶ \033[47;30m" : "   ";
             String suffix = selected == i ? "\033[0m" : "";
             out.println(prefix + options[i] + suffix);
         }
-        out.println("↑/w ↓/s → Enter");
+        out.println("+==========================================+");
+        out.println("↑/↓ または w/s で移動、Enterで選択、Escで戻る");
         out.flush();
     }
 
@@ -187,56 +195,52 @@ public class WriteDiaryUI {
     }
 
     private static void shareDiary(Terminal terminal, PrintWriter out, BindingReader reader, String userId) {
-    try {
-        String date = getToday();
-        String baseUrl = "https://teamf-6d71a-default-rtdb.asia-southeast1.firebasedatabase.app";
-        URL getUrl = new URL(baseUrl + "/diaries/" + userId + "/" + date + ".json");
-
-        // 1. 既存の日記を取得
-        HttpURLConnection getConn = (HttpURLConnection) getUrl.openConnection();
-        getConn.setRequestMethod("GET");
-        getConn.setRequestProperty("Accept", "application/json");
-
-        JSONObject diaryJson;
-        try (InputStream is = getConn.getInputStream();
-             Scanner s = new Scanner(is).useDelimiter("\\A")) {
-            if (!s.hasNext()) {
-                showMessage(terminal, out, "共有失敗: データが存在しません", 2000);
-                return;
-            }
-            String result = s.next();
-            diaryJson = new JSONObject(result);
-        }
-
-        // 2. "shared": true を追加
-        diaryJson.put("shared", true);
-
-        // 3. PUT で上書き送信
-        HttpURLConnection putConn = (HttpURLConnection) getUrl.openConnection();
-        putConn.setRequestMethod("PUT");
-        putConn.setRequestProperty("Content-Type", "application/json; utf-8");
-        putConn.setDoOutput(true);
-
-        try (OutputStream os = putConn.getOutputStream()) {
-            os.write(diaryJson.toString().getBytes("utf-8"));
-        }
-
-        int code = putConn.getResponseCode();
-        if (code == 200)
-            showMessage(terminal, out, "共有しました。", 1500);
-        else
-            showMessage(terminal, out, "共有失敗（HTTP " + code + "）", 2000);
-
-    } catch (Exception e) {
         try {
-            showMessage(terminal, out, "エラー: " + e.getMessage(), 2000);
-        } catch (InterruptedException ignored) {
+            String date = getToday();
+            String baseUrl = "https://teamf-6d71a-default-rtdb.asia-southeast1.firebasedatabase.app";
+            URL getUrl = new URL(baseUrl + "/diaries/" + userId + "/" + date + ".json");
+
+            HttpURLConnection getConn = (HttpURLConnection) getUrl.openConnection();
+            getConn.setRequestMethod("GET");
+            getConn.setRequestProperty("Accept", "application/json");
+
+            JSONObject diaryJson;
+            try (InputStream is = getConn.getInputStream();
+                    Scanner s = new Scanner(is).useDelimiter("\\A")) {
+                if (!s.hasNext()) {
+                    showMessage(terminal, out, "共有失敗: データが存在しません", 2000);
+                    return;
+                }
+                String result = s.next();
+                diaryJson = new JSONObject(result);
+            }
+
+            diaryJson.put("shared", true);
+
+            HttpURLConnection putConn = (HttpURLConnection) getUrl.openConnection();
+            putConn.setRequestMethod("PUT");
+            putConn.setRequestProperty("Content-Type", "application/json; utf-8");
+            putConn.setDoOutput(true);
+
+            try (OutputStream os = putConn.getOutputStream()) {
+                os.write(diaryJson.toString().getBytes("utf-8"));
+            }
+
+            int code = putConn.getResponseCode();
+            if (code == 200)
+                showMessage(terminal, out, "共有しました。", 1500);
+            else
+                showMessage(terminal, out, "共有失敗（HTTP " + code + "）", 2000);
+
+        } catch (Exception e) {
+            try {
+                showMessage(terminal, out, "エラー: " + e.getMessage(), 2000);
+            } catch (InterruptedException ignored) {
+            }
         }
     }
-}
 
-
-    private static void showMessage(Terminal terminal, PrintWriter out, String msg, int millis)
+    public static void showMessage(Terminal terminal, PrintWriter out, String msg, int millis)
             throws InterruptedException {
         terminal.puts(InfoCmp.Capability.clear_screen);
         out.println(msg);

@@ -25,16 +25,23 @@ public class LoginUI {
         int focus = 0;
 
         out.print("\033[H\033[2J");
-        out.println("=== ログイン画面 ===");
+        out.println("+==========================================+");
+        out.println("             --交換日記アプリ--");
+        out.println("+==========================================+");
+        out.println("                ログイン画面 ");
+        out.println("+------------------------------------------+");
+
         for (String label : INPUT_ITEMS) {
-            out.print(label);
+            out.print("　　" + label);
             out.println();
         }
+        out.println("+==========================================+");
+        out.println("→ Enter");
         out.flush();
 
         while (true) {
-            int targetRow = 2 + focus;
-            int col = INPUT_COL_OFFSETS.get(focus) + inputs[focus].length();
+            int targetRow = 6 + focus;
+            int col = INPUT_COL_OFFSETS.get(focus) + inputs[focus].length() + 4;
             out.print(String.format("\033[%d;%dH", targetRow, col));
             terminal.puts(InfoCmp.Capability.cursor_visible);
             out.flush();
@@ -89,7 +96,10 @@ public class LoginUI {
                     loginFailed = true;
                 } else {
                     // 認証成功
+
                     terminal.puts(InfoCmp.Capability.cursor_invisible);
+                    WriteDiaryUI.showMessage(terminal, out, "ログインに成功しました", 0);
+
                     MainMenuUI.start(terminal, userId);
                     return; // 成功したらここで戻る
                 }
@@ -97,10 +107,8 @@ public class LoginUI {
 
             if (loginFailed) {
                 terminal.puts(InfoCmp.Capability.cursor_invisible);
-                out.println("\nログイン失敗：IDまたはパスワードが間違っています");
+                WriteDiaryUI.showMessage(terminal, out, "ログイン失敗：IDまたはパスワードが間違っています", 2000);
                 out.flush();
-
-                Thread.sleep(2000);
                 while (terminal.reader().ready()) {
                     terminal.reader().read();
                 }
