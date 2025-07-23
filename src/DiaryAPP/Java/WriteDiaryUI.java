@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 public class WriteDiaryUI {
 
-    @SuppressWarnings("resource")
     public static void start(Terminal terminal, String userId, String date, WeatherInfo info) throws Exception {
         PrintWriter out = terminal.writer();
         BindingReader reader = new BindingReader(terminal.reader());
