@@ -10,7 +10,7 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class SpotifyArtistSearchApi {
+public class SpotifyArtistSearch {
     private static final String CLIENT_ID = "8970f04edef74a48a89938617c70caaf";
     private static final String CLIENT_SECRET = "e35e22f9f69c44088446ae6115c88d5b";
 
