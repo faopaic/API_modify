@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class WriteDiaryUI {
 
     @SuppressWarnings("resource")
-    public static void start(Terminal terminal, String userId) throws Exception {
+    public static void start(Terminal terminal, String userId, String date, WeatherInfo info) throws Exception {
         PrintWriter out = terminal.writer();
         BindingReader reader = new BindingReader(terminal.reader());
         Scanner scanner = new Scanner(System.in, "Shift_JIS");
@@ -29,7 +29,7 @@ public class WriteDiaryUI {
         final int MENU_SIZE = 3;
 
         while (true) {
-            drawMenu(terminal, out, selected, firstWrite);
+            drawMenu(terminal, out, selected, firstWrite, userId, date, info);
             int ch = reader.readCharacter();
 
             if (ch == 'w' || ch == 'W' || ch == 65) { // ↑キー or w
@@ -57,9 +57,18 @@ public class WriteDiaryUI {
         }
     }
 
-    private static void drawMenu(Terminal terminal, PrintWriter out, int selected, boolean firstWrite) {
+    private static void drawMenu(Terminal terminal, PrintWriter out, int selected, boolean firstWrite, String userId,
+            String date, WeatherInfo info)
+            throws Exception {
         terminal.puts(InfoCmp.Capability.clear_screen);
-        out.println("=== 日記を書く ===");
+
+        out.println("+==========================================+");
+        out.printf(" ユーザー名： %s\n", userId);
+        out.printf(" 　　　日付： %s \n", date);
+        out.printf(" 　　　天気： %s %s°C \n", info.weather, info.temp);
+        out.println("+==========================================+");
+        out.println("               メインメニュー ");
+        out.println("+------------------------------------------+");
         String[] options = {
                 firstWrite ? "内容を書き込む" : "続きを書く",
                 "日記を保存する",
@@ -70,6 +79,7 @@ public class WriteDiaryUI {
             String suffix = selected == i ? "\033[0m" : "";
             out.println(prefix + options[i] + suffix);
         }
+        out.println("+==========================================+");
         out.println("↑/↓ または w/s で移動、Enterで選択、Escで戻る");
         out.flush();
     }
@@ -230,7 +240,7 @@ public class WriteDiaryUI {
         }
     }
 
-    private static void showMessage(Terminal terminal, PrintWriter out, String msg, int millis)
+    public static void showMessage(Terminal terminal, PrintWriter out, String msg, int millis)
             throws InterruptedException {
         terminal.puts(InfoCmp.Capability.clear_screen);
         out.println(msg);

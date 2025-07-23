@@ -19,7 +19,11 @@ public class TopMenuUI {
 
         while (true) {
             terminal.puts(InfoCmp.Capability.clear_screen);
-            out.println("=== トップメニュー ===");
+            out.println("+==========================================+");
+            out.println("             --交換日記アプリ--");
+            out.println("+==========================================+");
+            out.println("               トップメニュー ");
+            out.println("+------------------------------------------+");
             for (int i = 0; i < MENU_ITEMS.size(); i++) {
                 if (i == selected) {
                     out.println("▶ \033[47;30m" + MENU_ITEMS.get(i) + "\033[0m");
@@ -27,6 +31,7 @@ public class TopMenuUI {
                     out.println("   " + MENU_ITEMS.get(i));
                 }
             }
+            out.println("+==========================================+");
             out.println("↑/w ↓/s → Enter");
             out.flush();
 

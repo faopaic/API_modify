@@ -25,16 +25,22 @@ public class UserRegisterUI {
         int focus = 0;
 
         out.print("\033[H\033[2J");
-        out.println("=== ユーザー登録画面 ===");
+        out.println("+==========================================+");
+        out.println("             --交換日記アプリ--");
+        out.println("+==========================================+");
+        out.println("              ユーザー登録画面 ");
+        out.println("+------------------------------------------+");
         for (String label : INPUT_ITEMS) {
-            out.print(label);
+            out.print("　　" + label);
             out.println();
         }
+        out.println("+==========================================+");
+        out.println("→ Enter");
         out.flush();
 
         while (true) {
-            int targetRow = 2 + focus;
-            int col = INPUT_COL_OFFSETS.get(focus) + inputs[focus].length();
+            int targetRow = 6 + focus;
+            int col = INPUT_COL_OFFSETS.get(focus) + inputs[focus].length() + 4;
             out.print(String.format("\033[%d;%dH", targetRow, col));
             terminal.puts(InfoCmp.Capability.cursor_visible);
             out.flush();
@@ -82,9 +88,9 @@ public class UserRegisterUI {
         if (responseCode == 200) {
             terminal.puts(InfoCmp.Capability.cursor_invisible);
             out.println();
-            out.println("ユーザー登録が完了しました！");
+            WriteDiaryUI.showMessage(terminal, out, "ユーザー登録が完了しました！", 2000);
+
             out.flush();
-            Thread.sleep(2000);
             while (terminal.reader().ready()) {
                 terminal.reader().read();
             }
@@ -99,10 +105,8 @@ public class UserRegisterUI {
             // }
             terminal.puts(InfoCmp.Capability.cursor_invisible);
             out.println();
-            out.println("登録に失敗しました（HTTP " + responseCode + "）");
-            // out.println(errorResponse.toString());
+            WriteDiaryUI.showMessage(terminal, out, "\"登録に失敗しました（HTTP \" + responseCode + \"）\"", 2000);
             out.flush();
-            Thread.sleep(3000);
             while (terminal.reader().ready()) {
                 terminal.reader().read();
             }
