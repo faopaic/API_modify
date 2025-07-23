@@ -1,4 +1,4 @@
-package DiaryAPP.Java;
+package iroiro.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -26,13 +26,5 @@ public class DateTimeApiUtil {
         String datetime = json.getString("datetime");
 
         return new DateTimeInfo(datetime);
-    }
-}
-
-class DateTimeInfo {
-    public final String datetime; // ISO8601形式の日時文字列
-
-    public DateTimeInfo(String datetime) {
-        this.datetime = datetime;
     }
 }

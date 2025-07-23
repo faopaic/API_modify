@@ -1,4 +1,5 @@
-package DiaryAPP.Java;
+package iroiro.java;
+
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;

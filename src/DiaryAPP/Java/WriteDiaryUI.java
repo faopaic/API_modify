@@ -13,6 +13,8 @@ import java.util.*;
 
 import org.json.JSONObject;
 
+import iroiro.java.WeatherInfo;
+
 public class WriteDiaryUI {
 
     public static void start(Terminal terminal, String userId, String date, WeatherInfo info) throws Exception {
