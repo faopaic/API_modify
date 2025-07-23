@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PokeApi",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.PokeApi",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
+            "name": "WikiPersonSearch",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.WikiPersonSearch",
+            "projectName": "API_modify_e47afebf"
+        },
+        {
+            "type": "java",
             "name": "RecipeSearchApp",
             "request": "launch",
             "mainClass": "RecipeSearchApp",

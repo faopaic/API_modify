@@ -80,7 +80,7 @@ public class TopicSearchUI {
                 RiseSetTimesByPrefecture.main(new String[] {});
                 break;
             case "Spotifyのアーティストを検索する":
-                SpotifyArtistSearchApi.main(new String[] {});
+                SpotifyArtistSearch.main(new String[] {});
                 break;
             case "AdviceAPIからアドバイスを取得する":
                 AdviceApi.main(new String[] {});
