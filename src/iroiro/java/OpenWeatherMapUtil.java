@@ -1,4 +1,4 @@
-package DiaryAPP.Java;
+package iroiro.java;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -33,15 +33,5 @@ public class OpenWeatherMapUtil {
         double temp = json.getJSONObject("main").getDouble("temp");
 
         return new WeatherInfo(weather, temp);
-    }
-}
-
-class WeatherInfo {
-    public final String weather;
-    public final double temp;
-
-    public WeatherInfo(String weather, double temp) {
-        this.weather = weather;
-        this.temp = temp;
     }
 }

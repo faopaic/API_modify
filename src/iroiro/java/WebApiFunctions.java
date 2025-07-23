@@ -1,4 +1,4 @@
-package DiaryAPP.Java;
+package iroiro.java;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;

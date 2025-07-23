@@ -2,6 +2,17 @@ package DiaryAPP.Java;
 
 import org.jline.terminal.Terminal;
 import org.jline.utils.InfoCmp;
+
+import iroiro.java.AdviceApi;
+import iroiro.java.AnimalTriviaApp;
+import iroiro.java.LibrarySearchApp;
+import iroiro.java.NasaApodViewerWithDate;
+import iroiro.java.PokeApi;
+import iroiro.java.RecipeSearchApp;
+import iroiro.java.RiseSetTimesByPrefecture;
+import iroiro.java.SpotifyArtistSearch;
+import iroiro.java.WikiPersonSearch;
+
 import org.jline.keymap.BindingReader;
 
 import java.io.PrintWriter;

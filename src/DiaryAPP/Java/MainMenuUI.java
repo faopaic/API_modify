@@ -3,6 +3,11 @@ package DiaryAPP.Java;
 import org.jline.terminal.Terminal;
 import org.jline.utils.InfoCmp;
 
+import iroiro.java.DateTimeApiUtil;
+import iroiro.java.DateTimeInfo;
+import iroiro.java.OpenWeatherMapUtil;
+import iroiro.java.WeatherInfo;
+
 import java.io.PrintWriter;
 import java.util.List;
 

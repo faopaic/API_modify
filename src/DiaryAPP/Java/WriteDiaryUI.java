@@ -13,9 +13,10 @@ import java.util.*;
 
 import org.json.JSONObject;
 
+import iroiro.java.WeatherInfo;
+
 public class WriteDiaryUI {
 
-    @SuppressWarnings("resource")
     public static void start(Terminal terminal, String userId, String date, WeatherInfo info) throws Exception {
         PrintWriter out = terminal.writer();
         BindingReader reader = new BindingReader(terminal.reader());
