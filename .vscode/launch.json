@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PoetryTranslate",
+            "request": "launch",
+            "mainClass": "iroiro.java.PoetryTranslate",
+            "projectName": "API_modify_9b6081dc"
+        },
+        {
+            "type": "java",
+            "name": "PoetryTranslate",
+            "request": "launch",
+            "mainClass": "DiaryAPP.Java.PoetryTranslate",
+            "projectName": "API_modify_9b6081dc"
+        },
+        {
+            "type": "java",
             "name": "RecipeSearchApp",
             "request": "launch",
             "mainClass": "iroiro.java.RecipeSearchApp",
