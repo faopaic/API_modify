@@ -28,6 +28,7 @@ public class TopicSearchUI {
             "図書館検索をする",
             "NASAの星画像を見る",
             "ニュース記事を取得する",
+            "ポエムを取得する",
             "図鑑ナンバーからポケモンを調べる",
             "食材から料理レシピを探す",
             "日・月の出入りを確認する",
@@ -96,6 +97,9 @@ public class TopicSearchUI {
                 break;
             case "ニュース記事を取得する":
                 NewsDataApiExample.main(new String[] {});
+                break;
+            case "ポエムを取得する":
+                Poetry.main(new String[] {});
                 break;
             case "図鑑ナンバーからポケモンを調べる":
                 PokeApi.main(new String[] {});
