@@ -7,6 +7,7 @@ import iroiro.java.AdviceApi;
 import iroiro.java.AnimalTriviaApp;
 import iroiro.java.LibrarySearchApp;
 import iroiro.java.NasaApodViewerWithDate;
+import iroiro.java.NewsDataApiExample;
 import iroiro.java.PokeApi;
 import iroiro.java.RecipeSearchApp;
 import iroiro.java.RiseSetTimesByPrefecture;
@@ -25,6 +26,7 @@ public class TopicSearchUI {
             "動物の生体情報を見る",
             "図書館検索をする",
             "NASAの星画像を見る",
+            "ニュース記事を取得する",
             "図鑑ナンバーからポケモンを調べる",
             "食材から料理レシピを探す",
             "日・月の出入りを確認する",
@@ -89,6 +91,9 @@ public class TopicSearchUI {
                 break;
             case "NASAの星画像を見る":
                 NasaApodViewerWithDate.main(new String[] {});
+                break;
+            case "ニュース記事を取得する":
+                NewsDataApiExample.main(new String[] {});
                 break;
             case "図鑑ナンバーからポケモンを調べる":
                 PokeApi.main(new String[] {});
