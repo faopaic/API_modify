@@ -8,10 +8,19 @@ import org.json.JSONObject;
 
 public class DateTimeApiUtil {
     public static DateTimeInfo getDateTime(String timezone) throws Exception {
-        String urlStr = "http://worldtimeapi.org/api/timezone/" + timezone;
+        String urlStr = "https://worldtimeapi.org/api/timezone/" + timezone;
         URL url = new URL(urlStr);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
         conn.setRequestMethod("GET");
+        conn.setConnectTimeout(5000); // 5秒で接続失敗と判断
+        conn.setReadTimeout(5000); // 応答が5秒以内にないと失敗
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+        int responseCode = conn.getResponseCode();
+        if (responseCode != 200) {
+            throw new RuntimeException("HTTP error: " + responseCode);
+        }
 
         BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
         StringBuilder response = new StringBuilder();
@@ -22,7 +31,6 @@ public class DateTimeApiUtil {
         in.close();
 
         JSONObject json = new JSONObject(response.toString());
-        // datetime フィールドは例: "2025-07-23T14:30:00.123456+09:00"
         String datetime = json.getString("datetime");
 
         return new DateTimeInfo(datetime);
