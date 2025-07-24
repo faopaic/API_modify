@@ -36,17 +36,20 @@ public class ReadDiaryUI {
 
         while (true) {
             terminal.puts(InfoCmp.Capability.clear_screen);
-            out.println("=== 過去の日記一覧 ===");
-            out.println("日付       | タイトル");
-            out.println("---------------------------");
+            out.println("+==========================================+");
+            out.printf(" ユーザー名： %s\n", userId);
+            out.println("+==========================================+");
+            out.println("               過去の日記一覧 ");
+            out.println("+------------------------------------------+");
             for (int i = 0; i < dates.size(); i++) {
                 String date = dates.get(i);
                 String title = diaryList.get(date);
                 String prefix = (i == selected) ? "▶ \033[47;30m" : "   ";
                 String suffix = (i == selected) ? "\033[0m" : "";
-                out.printf("%s%s | %s%s%n", prefix, date, title, suffix);
+                out.printf("　%s%s | %s%s%n", prefix, date, title, suffix);
             }
-            out.println("\n↑/w ↓/s → Enter  ESCで戻る");
+            out.println("+==========================================+");
+            out.println("↑/↓ または w/s で移動、Enterで選択、Escで戻る");
             out.flush();
 
             int ch = reader.readCharacter();
@@ -118,11 +121,13 @@ public class ReadDiaryUI {
 
         while (true) {
             terminal.puts(InfoCmp.Capability.clear_screen);
-            out.println("=== 日記詳細 ===");
-            out.println("日付: " + date);
-            out.println("タイトル: " + title);
-            out.println("本文:");
+            out.println("+==========================================+");
+            out.printf(" ユーザー名： %s\n", userId);
+            out.println("+==========================================+");
+            out.println("  　　日付: " + date + "\n　タイトル: " + title);
+            out.println("+------------------------------------------+");
             out.println(body);
+            out.print("+==========================================+");
             out.println("\nESCで戻る");
             out.flush();
 

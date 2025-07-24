@@ -35,7 +35,7 @@ public class UserRegisterUI {
             out.println();
         }
         out.println("+==========================================+");
-        out.println("→ Enter");
+        out.println("↑Enterで決定、Escで戻る");
         out.flush();
 
         while (true) {
