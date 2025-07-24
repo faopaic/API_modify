@@ -8,6 +8,7 @@ import iroiro.java.AnimalTriviaApp;
 import iroiro.java.LibrarySearchApp;
 import iroiro.java.NasaApodViewerWithDate;
 import iroiro.java.NewsDataApiExample;
+import iroiro.java.Poetry;
 import iroiro.java.PokeApi;
 import iroiro.java.RecipeSearchApp;
 import iroiro.java.RiseSetTimesByPrefecture;
@@ -32,6 +33,7 @@ public class TopicSearchUI {
             "日・月の出入りを確認する",
             "Spotifyでアーティストを検索する",
             "WikiPediaで人物を検索する",
+            "ランダムで詩を取得する",
             "戻る");
 
     public static void start(Terminal terminal, String userId) throws Exception {
@@ -109,6 +111,9 @@ public class TopicSearchUI {
                 break;
             case "WikiPediaで人物を検索する":
                 WikiPersonSearch.main(new String[] {});
+                break;
+            case "ランダムで詩を取得する":
+                Poetry.main(new String[] {});
                 break;
             default:
                 out.println("未実装の項目です。");
