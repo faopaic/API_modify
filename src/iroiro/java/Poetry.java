@@ -9,22 +9,22 @@ import java.net.URLEncoder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class PoetryTranslate {
+public class Poetry {
 
     public static void main(String[] args) {
-        String author = "William Blake"; // 詩人名を指定
-        getAndTranslatePoems(author);
+        String author = "William Blake"; // 詩人名を指定（例: "Emily Dickinson", "Robert Frost" なども可）
+        getPoems(author);
     }
 
-    public static void getAndTranslatePoems(String author) {
+    public static void getPoems(String author) {
         try {
-            // 空白を %20 に正しく変換
+            // 詩人名をURLエンコード（空白を %20 に）
             String encodedAuthor = URLEncoder.encode(author, "UTF-8").replace("+", "%20");
             String apiUrl = "https://poetrydb.org/author/" + encodedAuthor;
 
             System.out.println("API URL: " + apiUrl);
 
-            // HTTP リクエスト送信
+            // HTTP GETリクエスト
             HttpURLConnection conn = (HttpURLConnection) new URL(apiUrl).openConnection();
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(5000);
@@ -32,11 +32,11 @@ public class PoetryTranslate {
 
             int responseCode = conn.getResponseCode();
             if (responseCode != 200) {
-                System.out.println("⚠️ HTTPエラーコード: " + responseCode);
+                System.out.println("HTTPエラーコード: " + responseCode);
                 return;
             }
 
-            // レスポンス取得
+            // レスポンス読み取り
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             StringBuilder responseBuilder = new StringBuilder();
             String line;
@@ -48,40 +48,43 @@ public class PoetryTranslate {
 
             String jsonResponse = responseBuilder.toString().trim();
 
-            // 詩データが配列で返された場合のみ処理
+            // 詩データが配列として返された場合のみ処理
             if (jsonResponse.startsWith("[")) {
                 JSONArray poems = new JSONArray(jsonResponse);
 
                 if (poems.length() > 0) {
-                    JSONObject poem = poems.getJSONObject(0); // 最初の1つだけ取得
+                    // ランダムに1つ詩を選ぶ
+                    int randomIndex = (int) (Math.random() * poems.length());
+                    JSONObject poem = poems.getJSONObject(randomIndex);
                     String title = poem.getString("title");
                     JSONArray lines = poem.getJSONArray("lines");
 
-                    // 最初の5行だけ表示（必要なら行数を変更可能）
-                    int maxLinesToShow = Math.min(5, lines.length());
-
+                    // 全文を連結
                     StringBuilder poemText = new StringBuilder();
-                    for (int i = 0; i < maxLinesToShow; i++) {
+                    for (int i = 0; i < lines.length(); i++) {
                         poemText.append(lines.getString(i)).append("\n");
                     }
 
-                    System.out.println("📜 タイトル: " + title);
-                    System.out.println("原文（一部抜粋）:");
-                    System.out.println(poemText.toString());
-                    System.out.println("（※詩の全文は省略されています）");
+                    // 日本語に翻訳（DeepL API）
+                    String tspoem = WebApiFunctions.translateText(poemText.toString(), "JA");
+
+                    // 表示
+                    System.out.println("タイトル: " + title);
+                    System.out.println("原文（全文）:\n" + poemText.toString());
+                    System.out.println("和訳（全文）:\n" + tspoem);
                     System.out.println("-----------------------------\n");
                 } else {
-                    System.out.println("⚠️ 詩が見つかりませんでした。");
+                    System.out.println("詩が見つかりませんでした。");
                 }
             } else {
                 JSONObject error = new JSONObject(jsonResponse);
                 String reason = error.optString("reason", "不明なエラー");
-                System.out.println("⚠️ APIエラー: " + reason);
+                System.out.println("APIエラー: " + reason);
             }
 
         } catch (Exception e) {
-            System.out.println("❌ エラーが発生しました:");
-            System.out.println(e.getMessage()); // ここで詳細な英語ログではなくメッセージ1行のみ表示
+            System.out.println("エラーが発生しました:");
+            System.out.println(e.getMessage());
         }
     }
 }
