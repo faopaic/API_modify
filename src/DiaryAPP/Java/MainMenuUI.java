@@ -53,7 +53,7 @@ public class MainMenuUI {
             }
 
             out.println("+==========================================+");
-            out.println("↑/w ↓/s → Enter");
+            out.println("↑/↓ または w/s で移動、Enterで選択");
             out.flush();
 
             int ch = terminal.reader().read();

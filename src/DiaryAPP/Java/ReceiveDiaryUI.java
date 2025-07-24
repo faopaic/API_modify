@@ -35,15 +35,20 @@ public class ReceiveDiaryUI {
 
         while (true) {
             terminal.puts(InfoCmp.Capability.clear_screen);
-            out.println("=== 他のユーザーの選択 ===");
+            out.println("+==========================================+");
+            out.printf(" ユーザーID： %s\n", currentUserId);
+            out.println("+==========================================+");
+            out.println("         ユーザーを選択してください ");
+            out.println("+------------------------------------------+");
             for (int i = 0; i < userList.size(); i++) {
                 if (i == userIndex) {
-                    out.println("▶ \033[47;30m" + userList.get(i) + "\033[0m");
+                    out.println("　▶ \033[47;30m" + userList.get(i) + "\033[0m");
                 } else {
-                    out.println("   " + userList.get(i));
+                    out.println(" 　  " + userList.get(i));
                 }
             }
-            out.println("↑/w ↓/s → Enter, Esc で戻る");
+            out.println("+==========================================+");
+            out.println("↑/↓ または w/s で移動、Enterで選択、Escで戻る");
             out.flush();
 
             int ch = terminal.reader().read();
@@ -55,7 +60,7 @@ public class ReceiveDiaryUI {
                 userIndex = (userIndex + 1) % userList.size();
             } else if (ch == 10 || ch == 13) {
                 String selectedUser = userList.get(userIndex);
-                selectDiaryOfUser(terminal, out, othersDiaries.get(selectedUser));
+                selectDiaryOfUser(terminal, out, selectedUser, othersDiaries.get(selectedUser));
             }
         }
     }
@@ -98,22 +103,28 @@ public class ReceiveDiaryUI {
         return othersDiaries;
     }
 
-    private static void selectDiaryOfUser(Terminal terminal, PrintWriter out, Map<String, JSONObject> diaryMap)
+    private static void selectDiaryOfUser(Terminal terminal, PrintWriter out, String selectedUserId,
+            Map<String, JSONObject> diaryMap)
             throws Exception {
         List<String> dateList = new ArrayList<>(diaryMap.keySet());
         int dateIndex = 0;
 
         while (true) {
             terminal.puts(InfoCmp.Capability.clear_screen);
-            out.println("=== 日付の選択 ===");
+            out.println("+==========================================+");
+            out.printf(" ユーザーID: %s\n", selectedUserId); // 選択されたユーザーIDを表示
+            out.println("+==========================================+");
+            out.println("          日付を選択してください");
+            out.println("+------------------------------------------+");
             for (int i = 0; i < dateList.size(); i++) {
                 if (i == dateIndex) {
-                    out.println("▶ \033[47;30m" + dateList.get(i) + "\033[0m");
+                    out.println("　▶ \033[47;30m" + dateList.get(i) + "\033[0m");
                 } else {
-                    out.println("   " + dateList.get(i));
+                    out.println(" 　  " + dateList.get(i));
                 }
             }
-            out.println("↑/w ↓/s → Enter, Esc で戻る");
+            out.println("+==========================================+");
+            out.println("↑/↓ または w/s で移動、Enterで選択、Escで戻る");
             out.flush();
 
             int ch = terminal.reader().read();
@@ -126,21 +137,23 @@ public class ReceiveDiaryUI {
             } else if (ch == 10 || ch == 13) {
                 String selectedDate = dateList.get(dateIndex);
                 JSONObject diary = diaryMap.get(selectedDate);
-                showDiary(terminal, out, selectedDate, diary);
+                showDiary(terminal, out, selectedDate, diary, selectedUserId);
             }
         }
     }
 
-    private static void showDiary(Terminal terminal, PrintWriter out, String date, JSONObject diary) throws Exception {
+    private static void showDiary(Terminal terminal, PrintWriter out, String date, JSONObject diary,
+            String selectedUserId) throws Exception {
         terminal.puts(InfoCmp.Capability.clear_screen);
         String title = diary.getString("title");
         String body = diary.getString("body");
-
-        out.println("=== " + date + " の日記 ===");
-        out.println("タイトル: " + title);
-        out.println("本文:");
+        out.println("+==========================================+");
+        out.printf(" ユーザー名： %s\n", selectedUserId);
+        out.println("+==========================================+");
+        out.println("  　　日付: " + date + "\n　タイトル: " + title);
+        out.println("+------------------------------------------+");
         out.println(body);
-        out.println("\nEscキーで戻る");
+        out.println("\nEscで戻る");
         out.flush();
 
         int ch;

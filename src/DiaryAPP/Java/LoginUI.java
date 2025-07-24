@@ -36,7 +36,7 @@ public class LoginUI {
             out.println();
         }
         out.println("+==========================================+");
-        out.println("→ Enter");
+        out.println("Escで戻る");
         out.flush();
 
         while (true) {
