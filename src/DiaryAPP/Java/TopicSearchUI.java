@@ -21,14 +21,14 @@ import java.util.List;
 public class TopicSearchUI {
 
     private static final List<String> MENU_ITEMS = List.of(
+            "アドバイスを取得する",
             "動物の生体情報を見る",
             "図書館検索をする",
             "NASAの星画像を見る",
             "図鑑ナンバーからポケモンを調べる",
-            "日・月の出入りを確認する",
-            "Spotifyのアーティストを検索する",
-            "AdviceAPIからアドバイスを取得する",
             "食材から料理レシピを探す",
+            "日・月の出入りを確認する",
+            "Spotifyでアーティストを検索する",
             "WikiPediaで人物を検索する",
             "戻る");
 
@@ -75,6 +75,9 @@ public class TopicSearchUI {
         out.flush();
 
         switch (choice) {
+            case "アドバイスを取得する":
+                AdviceApi.main(new String[] {});
+                break;
             case "動物の生体情報を見る":
                 AnimalTriviaApp.main(new String[] {});
                 break;
@@ -87,17 +90,14 @@ public class TopicSearchUI {
             case "図鑑ナンバーからポケモンを調べる":
                 PokeApi.main(new String[] {});
                 break;
+            case "食材から料理レシピを探す":
+                RecipeSearchApp.main(new String[] {});
+                break;
             case "日・月の出入りを確認する":
                 RiseSetTimesByPrefecture.main(new String[] {});
                 break;
-            case "Spotifyのアーティストを検索する":
+            case "Spotifyでアーティストを検索する":
                 SpotifyArtistSearch.main(new String[] {});
-                break;
-            case "AdviceAPIからアドバイスを取得する":
-                AdviceApi.main(new String[] {});
-                break;
-            case "食材から料理レシピを探す":
-                RecipeSearchApp.main(new String[] {});
                 break;
             case "WikiPediaで人物を検索する":
                 WikiPersonSearch.main(new String[] {});

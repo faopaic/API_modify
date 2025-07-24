@@ -20,7 +20,7 @@ public class SpotifyArtistSearch {
         Scanner scanner = new Scanner(System.in);
         System.out.print("検索したいアーティスト名を入力してください: ");
         String artistName = scanner.nextLine();
-        scanner.close();
+        //scanner.close();
 
         if (artistName.trim().isEmpty()) {
             System.out.println("アーティスト名が空です。終了します。");
